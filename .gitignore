@@ -13,3 +13,4 @@ node_modules/
 # Output folder
 dist/
 public/
+coverage/
