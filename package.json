@@ -6,19 +6,34 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "dev": "nodemon"
   },
   "author": "",
   "license": "ISC",
   "keywords": [],
   "description": "",
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "5.5.0",
     "@typescript-eslint/parser": "5.5.0",
     "eslint": "8.3.0",
     "eslint-config-airbnb": "19.0.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "exec": "ts-node src/index.ts"
   }
 }
