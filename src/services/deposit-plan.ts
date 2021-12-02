@@ -1,4 +1,4 @@
-import { Plan } from "./plan";
+import { Plan, PlanType } from "./plan";
 import { PortfolioType, Portfolio, PortfolioService } from "./portfolio";
 /**
  * Dummy storage data of deposit plans for User
@@ -17,6 +17,11 @@ export interface DepositPlanInput extends Plan {
 
 export interface DepositAllocationFund {
   portfolioType: PortfolioType;
+  totalAmount: number;
+}
+
+export interface DepositFund {
+  planType: PlanType;
   totalAmount: number;
 }
 
@@ -41,6 +46,20 @@ export class DepositPlanService {
     return portfolios.map((portfolio) => ({
       portfolioType: portfolio.portfolioType,
       totalAmount: portfolio.plans
+        .map((plan) => plan.amount)
+        .reduce((prev, next) => prev + next),
+    }));
+  }
+
+  getDepositFunds(refId: string): DepositFund[] {
+    if (!this.storage[refId]) return [];
+    const portfolios = this.storage[refId];
+
+    return Object.values(PlanType).map((planType) => ({
+      planType,
+      totalAmount: portfolios
+        .flatMap((portfolio) => portfolio.plans)
+        .filter((plan) => plan.planType === planType)
         .map((plan) => plan.amount)
         .reduce((prev, next) => prev + next),
     }));
