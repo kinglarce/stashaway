@@ -1,4 +1,9 @@
-import { Get, Route } from "tsoa";
+import { Body, Get, Post, Route } from "tsoa";
+import {
+  DepositPlanInput,
+  DepositPlanService,
+  DepositPlan,
+} from "../services/deposit-plan";
 
 /**
  * Expose what's the available interface
@@ -17,5 +22,12 @@ export default class DepositPlanController {
     return {
       message: "Test",
     };
+  }
+
+  @Post("/")
+  public async createDepositPlan(
+    @Body() body: DepositPlanInput
+  ): Promise<DepositPlan> {
+    return new DepositPlanService().save(body);
   }
 }
