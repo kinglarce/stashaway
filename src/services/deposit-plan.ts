@@ -15,6 +15,11 @@ export interface DepositPlanInput extends Plan {
   portfolioType: PortfolioType;
 }
 
+export interface DepositAllocationFund {
+  portfolioType: PortfolioType;
+  totalAmount: number;
+}
+
 export class DepositPlanService {
   constructor(private storage: DepositPlan = DEPOSIT_PLAN) {}
 
@@ -27,5 +32,17 @@ export class DepositPlanService {
     new PortfolioService(this.storage[refId]).save(portfolioType, plan);
     console.log("Debug: Done deposit plans");
     return this.storage;
+  }
+
+  getAllocationFunds(refId: string): DepositAllocationFund[] {
+    if (!this.storage[refId]) return [];
+    const portfolios = this.storage[refId];
+
+    return portfolios.map((portfolio) => ({
+      portfolioType: portfolio.portfolioType,
+      totalAmount: portfolio.plans
+        .map((plan) => plan.amount)
+        .reduce((prev, next) => prev + next),
+    }));
   }
 }
