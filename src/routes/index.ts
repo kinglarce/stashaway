@@ -1,8 +1,12 @@
 import express from "express";
-import DepositPlan from "./deposit-plan.router";
+import DepositPlanController from "../controllers/deposit-plan";
 
 const router = express.Router();
 
-router.use("/deposit-plan", DepositPlan);
+router.get("/deposit-plan", async (_req, res) => {
+  const controller = new DepositPlanController();
+  const response = await controller.getResponse();
+  return res.send(response);
+});
 
 export default router;
