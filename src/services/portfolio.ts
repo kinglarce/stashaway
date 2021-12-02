@@ -13,13 +13,13 @@ export interface Portfolio {
 export class PortfolioService {
   constructor(private portfolios: Portfolio[]) {}
 
-  find(portfolioType: PortfolioType): Portfolio | undefined {
+  get(portfolioType: PortfolioType): Portfolio | undefined {
     return this.portfolios.find(
       (portfolio) => portfolio.portfolioType === portfolioType
     );
   }
 
-  findIndex(portfolioType: PortfolioType): number {
+  getIndex(portfolioType: PortfolioType): number {
     return this.portfolios.findIndex(
       (portfolio) => portfolio.portfolioType === portfolioType
     );
@@ -27,15 +27,15 @@ export class PortfolioService {
 
   save(portfolioType: PortfolioType, plan: Plan): Portfolio[] {
     console.log("Debug: Start portfolio");
-    if (!this.find(portfolioType)) {
+    if (!this.get(portfolioType)) {
       const data = { portfolioType, plans: [] };
       this.portfolios.push(data);
     }
 
-    const existingPortfolio = this.find(portfolioType);
+    const existingPortfolio = this.get(portfolioType);
     const updatedPlans = new PlanService(existingPortfolio?.plans).save(plan);
 
-    const existingPortfolioIndex = this.findIndex(portfolioType);
+    const existingPortfolioIndex = this.getIndex(portfolioType);
     this.portfolios[existingPortfolioIndex] = {
       portfolioType,
       plans: updatedPlans,
