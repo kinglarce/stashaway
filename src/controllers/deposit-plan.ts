@@ -1,8 +1,8 @@
 import { Body, Post, Route } from "tsoa";
 import {
-  DepositPlanInput,
+  IDepositPlanInput,
   DepositPlanService,
-  DepositPlan,
+  IDepositPlan,
 } from "../services/deposit-plan";
 
 @Route("deposit-plan")
@@ -12,9 +12,7 @@ export default class DepositPlanController {
    * @summary Save deposit plan and retrieve data recorded
    */
   @Post("/")
-  public async createDepositPlan(
-    @Body() body: DepositPlanInput
-  ): Promise<DepositPlan> {
+  public async post(@Body() body: IDepositPlanInput): Promise<IDepositPlan> {
     return new DepositPlanService().save(body);
   }
 }

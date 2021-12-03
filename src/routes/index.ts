@@ -7,20 +7,20 @@ const router = express.Router();
 
 router.post("/deposit-plan", async (req, res) => {
   const controller = new DepositPlanController();
-  const response = await controller.createDepositPlan(req.body);
+  const response = await controller.post(req.body);
   return res.send(response);
 });
 
 router.get("/allocation-fund/:refId", async (req, res) => {
   const controller = new AllocationFundController();
-  const response = await controller.getAllocationFund(req.params.refId);
+  const response = await controller.get(req.params.refId);
   if (!response) res.status(404).send({ message: "No record found" });
   return res.send(response);
 });
 
 router.get("/deposit-fund/:refId", async (req, res) => {
   const controller = new DepositFundController();
-  const response = await controller.getDepositFund(req.params.refId);
+  const response = await controller.get(req.params.refId);
   if (!response) res.status(404).send({ message: "No record found" });
   return res.send(response);
 });

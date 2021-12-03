@@ -1,28 +1,28 @@
-import { Plan, PlanService } from "./plan";
+import { IPlan, PlanService } from "./plan";
 /**
  * Types of portfolio types available
  */
-export enum PortfolioType {
+export enum IPortfolioType {
   HighRisk = "High Risk",
   Retirement = "Retirement",
 }
 /**
  * Retrieve portfolio type and list of plans
  */
-export interface Portfolio {
-  portfolioType: PortfolioType;
-  plans: Plan[];
+export interface IPortfolio {
+  portfolioType: IPortfolioType;
+  plans: IPlan[];
 }
 
 export class PortfolioService {
-  constructor(private portfolios: Portfolio[]) {}
+  constructor(private portfolios: IPortfolio[]) {}
   /**
    * This retrieves the portfolio "data" from the portfolios record
    * by providing the portfolio type.
    * @param portfolioType The portfolio type identifier
    * @returns Either a single portfolio record or undefined
    */
-  get(portfolioType: PortfolioType): Portfolio | undefined {
+  get(portfolioType: IPortfolioType): IPortfolio | undefined {
     return this.portfolios.find(
       (portfolio) => portfolio.portfolioType === portfolioType
     );
@@ -31,7 +31,7 @@ export class PortfolioService {
    * This retrieves all portfolios.
    * @returns List of portfolios recorded
    */
-  getPortfolios(): Portfolio[] {
+  getPortfolios(): IPortfolio[] {
     return this.portfolios;
   }
   /**
@@ -40,7 +40,7 @@ export class PortfolioService {
    * @param plan The plan type and amount to be save
    * @returns List of portfolios recorded
    */
-  build(portfolioType: PortfolioType, plan: Plan): Portfolio[] {
+  build(portfolioType: IPortfolioType, plan: IPlan): IPortfolio[] {
     if (!this.get(portfolioType)) {
       const data = { portfolioType, plans: [] };
       this.portfolios.push(data);
@@ -62,7 +62,7 @@ export class PortfolioService {
    * @param plan The plan type and amount to be save
    * @returns List of plans recorded
    */
-  getUpdatedPlans(portfolioType: PortfolioType, plan: Plan) {
+  getUpdatedPlans(portfolioType: IPortfolioType, plan: IPlan) {
     const existingPortfolio = this.get(portfolioType);
     const existingPlans = existingPortfolio?.plans;
     return new PlanService(existingPlans).build(plan);

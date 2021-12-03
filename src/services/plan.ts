@@ -1,7 +1,7 @@
 /**
  * Types of deposit plan available
  */
-export enum PlanType {
+export enum IPlanType {
   OneTime = "One Time",
   Monthly = "Monthly",
 }
@@ -9,13 +9,13 @@ export enum PlanType {
 /**
  * Metadata for holding Plan data.
  */
-export interface Plan {
-  planType: PlanType;
+export interface IPlan {
+  planType: IPlanType;
   amount: number;
 }
 
 export class PlanService {
-  constructor(private plans: Plan[] = []) {}
+  constructor(private plans: IPlan[] = []) {}
   /**
    * This retrieves the plan "data" from the plans record
    * by providing the plan type.
@@ -23,14 +23,14 @@ export class PlanService {
    * extracted from Plan body parameter
    * @returns Either a single plan record or undefined
    */
-  get({ planType }: Plan): Plan | undefined {
+  get({ planType }: IPlan): IPlan | undefined {
     return this.plans.find((plan) => plan.planType === planType);
   }
   /**
    * This retrieves all plans.
    * @returns List of plans recorded
    */
-  getPlans(): Plan[] {
+  getPlans(): IPlan[] {
     return this.plans;
   }
   /**
@@ -38,7 +38,7 @@ export class PlanService {
    * @param plan The plan type and amount to be save
    * @returns List of plans recorded
    */
-  build(plan: Plan): Plan[] {
+  build(plan: IPlan): IPlan[] {
     try {
       if (!this.get(plan)) {
         this.plans.push(plan);
@@ -51,6 +51,7 @@ export class PlanService {
       });
     } catch (e) {
       console.error(e);
+      return [];
     }
   }
 }

@@ -1,5 +1,5 @@
-import { DepositPlan, DEPOSIT_PLAN } from "./deposit-plan";
-import { Portfolio, PortfolioType } from "./portfolio";
+import { IDepositPlan, DEPOSIT_PLAN } from "./deposit-plan";
+import { IPortfolio, IPortfolioType } from "./portfolio";
 /**
  * Retrieve portfolio type and the total sum amount
  *
@@ -8,13 +8,13 @@ import { Portfolio, PortfolioType } from "./portfolio";
  *  "totalAmount": 10000
  * }
  */
-export interface AllocationFund {
-  portfolioType: PortfolioType;
+export interface IAllocationFund {
+  portfolioType: IPortfolioType;
   totalAmount: number;
 }
 
 export class AllocationFundService {
-  constructor(private storage: DepositPlan = DEPOSIT_PLAN) {}
+  constructor(private storage: IDepositPlan = DEPOSIT_PLAN) {}
   /**
    * This retrieves the allocation funds that is summed up
    * by portfolio type.
@@ -22,9 +22,9 @@ export class AllocationFundService {
    * @returns The list of allocation fund object which has
    * portfolio type and total summed amount
    */
-  get(refId: string): AllocationFund[] {
+  get(refId: string): IAllocationFund[] {
     if (!this.storage[refId]) return [];
-    const portfolios: Portfolio[] = this.storage[refId];
+    const portfolios: IPortfolio[] = this.storage[refId];
 
     return portfolios.map((portfolio) => ({
       portfolioType: portfolio.portfolioType,

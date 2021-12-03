@@ -1,5 +1,5 @@
 import { Get, Path, Route } from "tsoa";
-import { DepositFund, DepositFundService } from "../services/deposit-fund";
+import { IDepositFund, DepositFundService } from "../services/deposit-fund";
 
 @Route("deposit-fund")
 export default class DepositFundController {
@@ -8,7 +8,7 @@ export default class DepositFundController {
    * @summary Retrieve a list of deposit funds
    */
   @Get("/:refId")
-  public async getDepositFund(@Path() refId: string): Promise<DepositFund[]> {
+  public async get(@Path() refId: string): Promise<IDepositFund[]> {
     return new DepositFundService().get(refId);
   }
 }

@@ -1,10 +1,10 @@
-import { Plan } from "./plan";
-import { PortfolioType, Portfolio, PortfolioService } from "./portfolio";
+import { IPlan } from "./plan";
+import { IPortfolioType, IPortfolio, PortfolioService } from "./portfolio";
 /**
  * Dummy storage data of deposit plans for User
  * Used JSON object for storage to have O(1) of access time
  */
-export const DEPOSIT_PLAN: DepositPlan = {};
+export const DEPOSIT_PLAN: IDepositPlan = {};
 /**
  * Retrieve deposit plans data with its reference ID and portfolios
  *
@@ -26,8 +26,8 @@ export const DEPOSIT_PLAN: DepositPlan = {};
  *  ]
  * }
  */
-export interface DepositPlan {
-  [refId: string]: Portfolio[];
+export interface IDepositPlan {
+  [refId: string]: IPortfolio[];
 }
 /**
  * Expected reference ID, portfolio type, deposit plan type and amount
@@ -39,19 +39,19 @@ export interface DepositPlan {
  *  "amount": 10000
  * }
  */
-export interface DepositPlanInput extends Plan {
+export interface IDepositPlanInput extends IPlan {
   refId: string;
-  portfolioType: PortfolioType;
+  portfolioType: IPortfolioType;
 }
 
 export class DepositPlanService {
-  constructor(private storage: DepositPlan = DEPOSIT_PLAN) {}
+  constructor(private storage: IDepositPlan = DEPOSIT_PLAN) {}
   /**
    * This retrieves the deposit plan object by reference id
    * @param refId The reference id identifier
    * @returns Either a singple deposit plan object or {}
    */
-  get(refId: string): DepositPlan {
+  get(refId: string): IDepositPlan {
     const filtered = Object.keys(this.storage)
       .filter((key) => key === refId)
       .reduce((obj, key) => {
@@ -70,7 +70,7 @@ export class DepositPlanService {
    * portfolio type and amount to be save
    * @returns List of deposit plans recorded
    */
-  save(depositPlanInput: DepositPlanInput): DepositPlan {
+  save(depositPlanInput: IDepositPlanInput): IDepositPlan {
     const { refId, portfolioType, ...plan } = depositPlanInput;
     if (!this.storage[refId]) {
       this.storage[refId] = [];

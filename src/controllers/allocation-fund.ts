@@ -1,6 +1,6 @@
 import { Get, Path, Route } from "tsoa";
 import {
-  AllocationFund,
+  IAllocationFund,
   AllocationFundService,
 } from "../services/allocation-fund";
 
@@ -11,9 +11,7 @@ export default class AllocationFundController {
    * @summary Retrieve a list of allocation funds
    */
   @Get("/:refId")
-  public async getAllocationFund(
-    @Path() refId: string
-  ): Promise<AllocationFund[]> {
+  public async get(@Path() refId: string): Promise<IAllocationFund[]> {
     return new AllocationFundService().get(refId);
   }
 }
