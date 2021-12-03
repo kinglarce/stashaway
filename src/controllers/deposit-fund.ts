@@ -3,6 +3,10 @@ import { DepositFund, DepositFundService } from "../services/deposit-fund";
 
 @Route("deposit-fund")
 export default class DepositFundController {
+  /**
+   * This will return a list of deposit funds determined by reference id.
+   * @summary Retrieve a list of deposit funds
+   */
   @Get("/:refId")
   public async getDepositFund(@Path() refId: string): Promise<DepositFund[]> {
     return new DepositFundService().get(refId);

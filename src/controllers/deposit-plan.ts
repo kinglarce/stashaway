@@ -23,7 +23,10 @@ export default class DepositPlanController {
       message: "Test",
     };
   }
-
+  /**
+   * This will save the deposit plan and return the list of records.
+   * @summary Save deposit plan and retrieve data recorded
+   */
   @Post("/")
   public async createDepositPlan(
     @Body() body: DepositPlanInput

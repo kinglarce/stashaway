@@ -6,6 +6,10 @@ import {
 
 @Route("allocation-fund")
 export default class AllocationFundController {
+  /**
+   * This will return a list of allocation funds determined by reference id.
+   * @summary Retrieve a list of allocation funds
+   */
   @Get("/:refId")
   public async getAllocationFund(
     @Path() refId: string
