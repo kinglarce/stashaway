@@ -39,19 +39,17 @@ export class PlanService {
    * @returns List of plans recorded
    */
   build(plan: IPlan): IPlan[] {
-    try {
-      if (!this.get(plan)) {
-        this.plans.push(plan);
-      }
-      return this.plans.map((current) => {
-        if (current.planType === plan.planType) {
-          return plan;
-        }
-        return current;
-      });
-    } catch (e) {
-      console.error(e);
-      return [];
+    if (plan.amount < 0) {
+      throw new Error("Invalid amount value.");
     }
+    if (!this.get(plan)) {
+      this.plans.push(plan);
+    }
+    return this.plans.map((current) => {
+      if (current.planType === plan.planType) {
+        return plan;
+      }
+      return current;
+    });
   }
 }
