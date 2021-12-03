@@ -6,10 +6,10 @@ import {
 
 @Route("allocation-fund")
 export default class AllocationFundController {
-  @Get("/:id")
+  @Get("/:refId")
   public async getAllocationFund(
-    @Path() id: string
+    @Path() refId: string
   ): Promise<AllocationFund[]> {
-    return new AllocationFundService().get(id);
+    return new AllocationFundService().get(refId);
   }
 }

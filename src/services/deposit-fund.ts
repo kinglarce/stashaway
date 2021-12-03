@@ -14,13 +14,25 @@ export class DepositFundService {
     if (!this.storage[refId]) return [];
     const portfolios: Portfolio[] = this.storage[refId];
 
-    return Object.values(PlanType).map((planType) => ({
+    const data = [];
+    for (const planType of Object.values(PlanType)) {
+      data.push(this.getDepositFundByPlanType(portfolios, planType));
+    }
+
+    return data;
+  }
+
+  getDepositFundByPlanType(
+    portfolios: Portfolio[],
+    planType: PlanType
+  ): DepositFund {
+    return {
       planType,
       totalAmount: portfolios
         .flatMap((portfolio) => portfolio.plans)
         .filter((plan) => plan.planType === planType)
         .map((plan) => plan.amount)
         .reduce((prev, next) => prev + next),
-    }));
+    };
   }
 }
