@@ -28,6 +28,13 @@ export class PortfolioService {
     );
   }
   /**
+   * This retrieves all portfolios.
+   * @returns List of portfolios recorded
+   */
+  getPortfolios(): Portfolio[] {
+    return this.portfolios;
+  }
+  /**
    * This build portfolio data structure.
    * @param portfolioType The portfolio type identifier
    * @param plan The plan type and amount to be save

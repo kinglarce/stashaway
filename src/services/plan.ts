@@ -27,19 +27,30 @@ export class PlanService {
     return this.plans.find((plan) => plan.planType === planType);
   }
   /**
+   * This retrieves all plans.
+   * @returns List of plans recorded
+   */
+  getPlans(): Plan[] {
+    return this.plans;
+  }
+  /**
    * This build deposit plan data structure.
    * @param plan The plan type and amount to be save
    * @returns List of plans recorded
    */
   build(plan: Plan): Plan[] {
-    if (!this.get(plan)) {
-      this.plans.push(plan);
-    }
-    return this.plans.map((current) => {
-      if (current.planType === plan.planType) {
-        return plan;
+    try {
+      if (!this.get(plan)) {
+        this.plans.push(plan);
       }
-      return current;
-    });
+      return this.plans.map((current) => {
+        if (current.planType === plan.planType) {
+          return plan;
+        }
+        return current;
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
