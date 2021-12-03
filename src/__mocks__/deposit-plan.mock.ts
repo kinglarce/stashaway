@@ -1,5 +1,7 @@
-export const depositPlanFullScenario = {
-  NKLK626: [
+import { DepositPlan } from "../services/deposit-plan";
+
+export const mockDepositPlanFull = <DepositPlan>{
+  JMSBOND007: [
     {
       portfolioType: "High Risk",
       plans: [

@@ -5,12 +5,6 @@ import DepositFundController from "../controllers/deposit-fund";
 
 const router = express.Router();
 
-router.get("/deposit-plan", async (_req, res) => {
-  const controller = new DepositPlanController();
-  const response = await controller.getResponse();
-  return res.send(response);
-});
-
 router.post("/deposit-plan", async (req, res) => {
   const controller = new DepositPlanController();
   const response = await controller.createDepositPlan(req.body);

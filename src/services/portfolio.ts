@@ -28,42 +28,36 @@ export class PortfolioService {
     );
   }
   /**
-   * This retrieves the portfolio "index" from the portfolios record
-   * by providing the portfolio type.
-   * @param portfolioType The portfolio type identifier
-   * @returns Either an index or -1
-   */
-  getIndex(portfolioType: PortfolioType): number {
-    return this.portfolios.findIndex(
-      (portfolio) => portfolio.portfolioType === portfolioType
-    );
-  }
-  /**
-   * This creates new portfolio record and save it to the storage
-   * or update existing portfolio if found.
-   * This calls the PlanService for handling the saving of plans
-   * before saving it to the portfolio record.
+   * This build portfolio data structure.
    * @param portfolioType The portfolio type identifier
    * @param plan The plan type and amount to be save
-   * @returns All the portfolios recorded
+   * @returns List of portfolios recorded
    */
-  save(portfolioType: PortfolioType, plan: Plan): Portfolio[] {
-    console.log("Debug: Start portfolio");
+  build(portfolioType: PortfolioType, plan: Plan): Portfolio[] {
     if (!this.get(portfolioType)) {
       const data = { portfolioType, plans: [] };
       this.portfolios.push(data);
     }
-
+    return this.portfolios.map((current) => {
+      if (current.portfolioType === portfolioType) {
+        return {
+          portfolioType,
+          plans: this.getUpdatedPlans(portfolioType, plan),
+        };
+      }
+      return current;
+    });
+  }
+  /**
+   * This create and retrieves updated plans data structure by
+   * providing plan input data and portfolio type.
+   * @param portfolioType The portfolio type identifier
+   * @param plan The plan type and amount to be save
+   * @returns List of plans recorded
+   */
+  getUpdatedPlans(portfolioType: PortfolioType, plan: Plan) {
     const existingPortfolio = this.get(portfolioType);
-    const updatedPlans = new PlanService(existingPortfolio?.plans).save(plan);
-
-    const existingPortfolioIndex = this.getIndex(portfolioType);
-    this.portfolios[existingPortfolioIndex] = {
-      portfolioType,
-      plans: updatedPlans,
-    };
-
-    console.log("Debug: Done portfolio");
-    return this.portfolios;
+    const existingPlans = existingPortfolio?.plans;
+    return new PlanService(existingPlans).build(plan);
   }
 }

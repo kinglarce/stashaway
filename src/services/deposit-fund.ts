@@ -39,7 +39,7 @@ export class DepositFundService {
    * by plan type.
    * @param portfolios The list of existing portfolios recorded
    * @param planType The plan type identifier
-   * @returns The deposit fund object which has the
+   * @returns The list of deposit fund object which has the
    * plan type and total summed amount
    */
   getDepositFundByPlanType(
