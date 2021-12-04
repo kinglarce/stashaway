@@ -39,10 +39,10 @@ export class PlanService {
    * @returns List of plans recorded
    */
   build(plan: IPlan): IPlan[] {
-    if (plan.amount < 0) {
-      throw new Error("Invalid amount value.");
+    if (this.hasErrorMessage(plan)) {
+      throw new Error(this.hasErrorMessage(plan));
     }
-    if (!this.get(plan)) {
+    if (!this.hasExisting(plan)) {
       this.plans.push(plan);
     }
     return this.plans.map((current) => {
@@ -51,5 +51,44 @@ export class PlanService {
       }
       return current;
     });
+  }
+  /**
+   * This retrieves the necessary error message for
+   * invalid inputs
+   * @param plan The plan type and amount
+   * @returns A string of message
+   */
+  hasErrorMessage(plan: IPlan): string {
+    if (!this.isValidAmount(plan.amount)) {
+      return "Invalid amount value.";
+    }
+    if (!this.isValidPlanType(plan.planType)) {
+      return "Invalid plan type value.";
+    }
+    return "";
+  }
+  /**
+   * This check if it has existing plan.
+   * @param plan The plan type and amount
+   * @returns True/False
+   */
+  hasExisting(plan: IPlan): boolean {
+    return this.get(plan) ? true : false;
+  }
+  /**
+   * This check if the amount is more than zero.
+   * @param amount numerical value
+   * @returns True/False
+   */
+  isValidAmount(amount: number): boolean {
+    return amount >= 0;
+  }
+  /**
+   * This check if plan type is valid.
+   * @param planType plan type value
+   * @returns True/False
+   */
+  isValidPlanType(planType: IPlanType): boolean {
+    return planType ? true : false;
   }
 }
