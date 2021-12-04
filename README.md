@@ -71,6 +71,37 @@ Example Response
 }
 ```
 
+#### `GET /deposit-plan/{refId}`
+URL: [https://stashaway.kinglarce.repl.co/deposit-plan/{refId}](https://stashaway.kinglarce.repl.co/docs/#/default/GetDepositPlan)
+
+This will retrieve the list of deposit funds.
+
+Example Request
+
+`https://stashaway.kinglarce.repl.co/deposit-plan/JMSBOND007`
+
+Example Response
+
+```json
+{
+  "JMSBOND007": [
+    {
+      "portfolioType": "High Risk",
+      "plans": [
+        {
+          "planType": "One Time",
+          "amount": 10000
+        },
+        {
+          "planType": "Monthly",
+          "amount": 0
+        }
+      ]
+    }
+  ]
+}
+```
+
 #### `GET /allocation-fund/{refId}`
 URL: [https://stashaway.kinglarce.repl.co/allocation-fund/{refId}](https://stashaway.kinglarce.repl.co/docs/#/default/GetAllocationFund)
 
