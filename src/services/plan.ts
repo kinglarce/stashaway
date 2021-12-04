@@ -1,16 +1,16 @@
 /**
  * Types of deposit plan available
  */
-export enum IPlanType {
-  OneTime = "One Time",
-  Monthly = "Monthly",
+export enum PlanType {
+  ONE_TIME = "One Time",
+  MONTHLY = "Monthly",
 }
 
 /**
  * Metadata for holding Plan data.
  */
 export interface IPlan {
-  planType: IPlanType;
+  planType: PlanType;
   amount: number;
 }
 
@@ -88,7 +88,7 @@ export class PlanService {
    * @param planType plan type value
    * @returns True/False
    */
-  isValidPlanType(planType: IPlanType): boolean {
+  isValidPlanType(planType: PlanType): boolean {
     return planType ? true : false;
   }
 }

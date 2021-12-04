@@ -1,5 +1,5 @@
 import { IPlan } from "./plan";
-import { IPortfolioType, IPortfolio, PortfolioService } from "./portfolio";
+import { PortfolioType, IPortfolio, PortfolioService } from "./portfolio";
 /**
  * Dummy storage data of deposit plans for User
  * Used JSON object for storage to have O(1) of access time
@@ -41,7 +41,7 @@ export interface IDepositPlan {
  */
 export interface IDepositPlanInput extends IPlan {
   refId: string;
-  portfolioType: IPortfolioType;
+  portfolioType: PortfolioType;
 }
 
 export class DepositPlanService {

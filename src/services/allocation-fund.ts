@@ -1,5 +1,5 @@
 import { IDepositPlan, DEPOSIT_PLAN } from "./deposit-plan";
-import { IPortfolio, IPortfolioType } from "./portfolio";
+import { IPortfolio, PortfolioType } from "./portfolio";
 /**
  * Retrieve portfolio type and the total sum amount
  *
@@ -9,7 +9,7 @@ import { IPortfolio, IPortfolioType } from "./portfolio";
  * }
  */
 export interface IAllocationFund {
-  portfolioType: IPortfolioType;
+  portfolioType: PortfolioType;
   totalAmount: number;
 }
 

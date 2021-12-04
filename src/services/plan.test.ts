@@ -1,10 +1,10 @@
-import { PlanService, IPlanType } from "./plan";
+import { PlanService, PlanType } from "./plan";
 
 describe("PlanService", () => {
   describe("buildPlanDataStructure", () => {
     it("should insert new plan if it doesnt exist", () => {
       const mockData = {
-        planType: IPlanType.OneTime,
+        planType: PlanType.ONE_TIME,
         amount: 100,
       };
       const expected = [mockData];
@@ -14,12 +14,12 @@ describe("PlanService", () => {
     it("should update the plan if it already exist to prevent duplication", () => {
       const mockExistingData = [
         {
-          planType: IPlanType.OneTime,
+          planType: PlanType.ONE_TIME,
           amount: 100,
         },
       ];
       const mockDataUpdated = {
-        planType: IPlanType.OneTime,
+        planType: PlanType.ONE_TIME,
         amount: 200,
       };
       const expected = [
@@ -34,21 +34,21 @@ describe("PlanService", () => {
     it("should add new record if plan type is different", () => {
       const mockExistingData = [
         {
-          planType: IPlanType.OneTime,
+          planType: PlanType.ONE_TIME,
           amount: 100,
         },
       ];
       const mockData = {
-        planType: IPlanType.Monthly,
+        planType: PlanType.MONTHLY,
         amount: 50,
       };
       const expected = [
         {
-          planType: IPlanType.OneTime,
+          planType: PlanType.ONE_TIME,
           amount: 100,
         },
         {
-          planType: IPlanType.Monthly,
+          planType: PlanType.MONTHLY,
           amount: 50,
         },
       ];
@@ -57,7 +57,7 @@ describe("PlanService", () => {
     });
     it("should allow zero amount", () => {
       const mockData = {
-        planType: IPlanType.OneTime,
+        planType: PlanType.ONE_TIME,
         amount: 0,
       };
       const expected = [mockData];
@@ -66,7 +66,7 @@ describe("PlanService", () => {
     });
     it("should not allow negative amount", () => {
       const mockData = {
-        planType: IPlanType.Monthly,
+        planType: PlanType.MONTHLY,
         amount: -1,
       };
       const planService = new PlanService();

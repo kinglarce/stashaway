@@ -1,5 +1,5 @@
 import { IDepositPlan, DEPOSIT_PLAN } from "./deposit-plan";
-import { IPlanType } from "./plan";
+import { PlanType } from "./plan";
 import { IPortfolio } from "./portfolio";
 /**
  * Retrieve plan type and the total sum amount
@@ -10,7 +10,7 @@ import { IPortfolio } from "./portfolio";
  * }
  */
 export interface IDepositFund {
-  planType: IPlanType;
+  planType: PlanType;
   totalAmount: number;
 }
 
@@ -28,7 +28,7 @@ export class DepositFundService {
     const portfolios: IPortfolio[] = this.storage[refId];
 
     const data = [];
-    for (const planType of Object.values(IPlanType)) {
+    for (const planType of Object.values(PlanType)) {
       data.push(this.getDepositFundByPlanType(portfolios, planType));
     }
 
@@ -44,7 +44,7 @@ export class DepositFundService {
    */
   getDepositFundByPlanType(
     portfolios: IPortfolio[],
-    planType: IPlanType
+    planType: PlanType
   ): IDepositFund {
     return {
       planType,

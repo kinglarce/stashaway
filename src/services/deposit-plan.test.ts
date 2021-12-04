@@ -1,6 +1,6 @@
 import { DepositPlanService } from "./deposit-plan";
-import { IPortfolioType } from "./portfolio";
-import { IPlanType } from "./plan";
+import { PortfolioType } from "./portfolio";
+import { PlanType } from "./plan";
 import { mockDepositPlanFull } from "../__mocks__/deposit-plan.mock";
 
 describe("DepositPlanService", () => {
@@ -9,32 +9,32 @@ describe("DepositPlanService", () => {
       const DepositPlan = new DepositPlanService();
       const deposit1 = {
         refId: "JMSBOND007",
-        portfolioType: IPortfolioType.HighRisk,
-        planType: IPlanType.OneTime,
+        portfolioType: PortfolioType.HIGH_RISK,
+        planType: PlanType.ONE_TIME,
         amount: 10000,
       };
       DepositPlan.save(deposit1);
 
       const deposit2 = {
         refId: "JMSBOND007",
-        portfolioType: IPortfolioType.Retirement,
-        planType: IPlanType.OneTime,
+        portfolioType: PortfolioType.RETIREMENT,
+        planType: PlanType.ONE_TIME,
         amount: 500,
       };
       DepositPlan.save(deposit2);
 
       const deposit3 = {
         refId: "JMSBOND007",
-        portfolioType: IPortfolioType.HighRisk,
-        planType: IPlanType.Monthly,
+        portfolioType: PortfolioType.HIGH_RISK,
+        planType: PlanType.MONTHLY,
         amount: 0,
       };
       DepositPlan.save(deposit3);
 
       const deposit4 = {
         refId: "JMSBOND007",
-        portfolioType: IPortfolioType.Retirement,
-        planType: IPlanType.Monthly,
+        portfolioType: PortfolioType.RETIREMENT,
+        planType: PlanType.MONTHLY,
         amount: 100,
       };
       DepositPlan.save(deposit4);

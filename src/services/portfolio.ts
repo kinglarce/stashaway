@@ -2,15 +2,15 @@ import { IPlan, PlanService } from "./plan";
 /**
  * Types of portfolio types available
  */
-export enum IPortfolioType {
-  HighRisk = "High Risk",
-  Retirement = "Retirement",
+export enum PortfolioType {
+  HIGH_RISK = "High Risk",
+  RETIREMENT = "Retirement",
 }
 /**
  * Retrieve portfolio type and list of plans
  */
 export interface IPortfolio {
-  portfolioType: IPortfolioType;
+  portfolioType: PortfolioType;
   plans: IPlan[];
 }
 
@@ -22,7 +22,7 @@ export class PortfolioService {
    * @param portfolioType The portfolio type identifier
    * @returns Either a single portfolio record or undefined
    */
-  get(portfolioType: IPortfolioType): IPortfolio | undefined {
+  get(portfolioType: PortfolioType): IPortfolio | undefined {
     return this.portfolios.find(
       (portfolio) => portfolio.portfolioType === portfolioType
     );
@@ -40,7 +40,7 @@ export class PortfolioService {
    * @param plan The plan type and amount to be save
    * @returns List of portfolios recorded
    */
-  build(portfolioType: IPortfolioType, plan: IPlan): IPortfolio[] {
+  build(portfolioType: PortfolioType, plan: IPlan): IPortfolio[] {
     if (!this.get(portfolioType)) {
       const data = { portfolioType, plans: [] };
       this.portfolios.push(data);
@@ -62,7 +62,7 @@ export class PortfolioService {
    * @param plan The plan type and amount to be save
    * @returns List of plans recorded
    */
-  getUpdatedPlans(portfolioType: IPortfolioType, plan: IPlan) {
+  getUpdatedPlans(portfolioType: PortfolioType, plan: IPlan) {
     const existingPortfolio = this.get(portfolioType);
     const existingPlans = existingPortfolio?.plans;
     return new PlanService(existingPlans).build(plan);
