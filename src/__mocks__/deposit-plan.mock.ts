@@ -1,6 +1,4 @@
-import { IDepositPlan } from "../services/deposit-plan";
-
-export const mockDepositPlanFull = <IDepositPlan>{
+export const mockDepositPlanFull = {
   JMSBOND007: [
     {
       portfolioType: "High Risk",
