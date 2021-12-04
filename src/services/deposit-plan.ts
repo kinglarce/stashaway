@@ -72,11 +72,14 @@ export class DepositPlanService {
    */
   save(depositPlanInput: IDepositPlanInput): IDepositPlan {
     const { refId, portfolioType, ...plan } = depositPlanInput;
+    if (!refId) {
+      throw new Error("Reference ID doesn't exist.");
+    }
     if (!this.storage[refId]) {
       this.storage[refId] = [];
     }
-    const depositPlanCopy = this.get(refId);
-    const updatedPortfolio = new PortfolioService(depositPlanCopy[refId]).build(
+    const portfolios = this.storage[refId];
+    const updatedPortfolio = new PortfolioService([...portfolios]).build(
       portfolioType,
       plan
     );
