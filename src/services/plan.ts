@@ -76,12 +76,13 @@ export class PlanService {
     return this.get(plan) ? true : false;
   }
   /**
-   * This check if the amount is more than zero.
+   * This check if the amount is valid and
+   * more than zero.
    * @param amount numerical value
    * @returns True/False
    */
   isValidAmount(amount: number): boolean {
-    return amount >= 0;
+    return typeof amount !== "undefined" && amount !== null && amount >= 0;
   }
   /**
    * This check if plan type is valid.
@@ -89,6 +90,8 @@ export class PlanService {
    * @returns True/False
    */
   isValidPlanType(planType: PlanType): boolean {
-    return planType ? true : false;
+    return planType && Object.values(PlanType).includes(planType)
+      ? true
+      : false;
   }
 }

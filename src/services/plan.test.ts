@@ -1,7 +1,7 @@
-import { PlanService, PlanType } from "./plan";
+import { IPlan, PlanService, PlanType } from "./plan";
 
 describe("PlanService", () => {
-  describe("buildPlanDataStructure", () => {
+  describe("build", () => {
     it("should insert new plan if it doesnt exist", () => {
       const mockData = {
         planType: PlanType.ONE_TIME,
@@ -77,30 +77,14 @@ describe("PlanService", () => {
         expect((<Error>error).message).toBe("Invalid amount value.");
       }
     });
-    it("should not accept 'null' plan type", () => {
-      const mockData = {
-        planType: null,
-        amount: 0,
-      };
+    it("should not allow no plan data", () => {
+      const mockData = <IPlan>{};
       const planService = new PlanService();
       try {
         planService.build(mockData);
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
-        expect((<Error>error).message).toBe("Invalid plan type value.");
-      }
-    });
-    it("should not accept 'undefined' plan type", () => {
-      const mockData = {
-        planType: undefined,
-        amount: 0,
-      };
-      const planService = new PlanService();
-      try {
-        planService.build(mockData);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Error);
-        expect((<Error>error).message).toBe("Invalid plan type value.");
+        expect((<Error>error).message).toBe("Invalid amount value.");
       }
     });
   });
