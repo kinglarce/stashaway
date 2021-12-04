@@ -15,7 +15,7 @@ export interface IPortfolio {
 }
 
 export class PortfolioService {
-  constructor(private portfolios: IPortfolio[]) {}
+  constructor(private portfolios: IPortfolio[] = []) {}
   /**
    * This retrieves the portfolio "data" from the portfolios record
    * by providing the portfolio type.
