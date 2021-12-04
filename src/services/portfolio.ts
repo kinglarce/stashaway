@@ -41,7 +41,10 @@ export class PortfolioService {
    * @returns List of portfolios recorded
    */
   build(portfolioType: PortfolioType, plan: IPlan): IPortfolio[] {
-    if (!this.get(portfolioType)) {
+    if (!this.isValidPortfolioType(portfolioType)) {
+      throw new Error("Invalid portfolio type value.");
+    }
+    if (!this.hasExisting(portfolioType)) {
       const data = { portfolioType, plans: [] };
       this.portfolios.push(data);
     }
@@ -56,6 +59,14 @@ export class PortfolioService {
     });
   }
   /**
+   * This check if it has existing portfolio.
+   * @param plan The portfolio type identifier
+   * @returns True/False
+   */
+  hasExisting(portfolioType: PortfolioType): boolean {
+    return this.get(portfolioType) ? true : false;
+  }
+  /**
    * This create and retrieves updated plans data structure by
    * providing plan input data and portfolio type.
    * @param portfolioType The portfolio type identifier
@@ -66,5 +77,15 @@ export class PortfolioService {
     const existingPortfolio = this.get(portfolioType);
     const existingPlans = existingPortfolio?.plans;
     return new PlanService(existingPlans).build(plan);
+  }
+  /**
+   * This check if portfolio type is valid.
+   * @param portfolioType The portfolio type identifier
+   * @returns True/False
+   */
+  isValidPortfolioType(portfolioType: PortfolioType): boolean {
+    return portfolioType && Object.values(PortfolioType).includes(portfolioType)
+      ? true
+      : false;
   }
 }
