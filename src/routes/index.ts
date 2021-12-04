@@ -6,9 +6,14 @@ import DepositFundController from "../controllers/deposit-fund";
 const router = express.Router();
 
 router.post("/deposit-plan", async (req, res) => {
-  const controller = new DepositPlanController();
-  const response = await controller.post(req.body);
-  return res.send(response);
+  try {
+    const controller = new DepositPlanController();
+    const response = await controller.post(req.body);
+    return res.send(response);
+  } catch (error) {
+    console.error((<Error>error).stack);
+    res.status(400).send((<Error>error).message);
+  }
 });
 
 router.get("/allocation-fund/:refId", async (req, res) => {
