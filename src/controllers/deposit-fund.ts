@@ -8,7 +8,7 @@ export default class DepositFundController {
    * @summary Retrieve a list of deposit funds
    */
   @Get("/:refId")
-  public async get(@Path() refId: string): Promise<IDepositFund[]> {
+  public async getDepositFund(@Path() refId: string): Promise<IDepositFund[]> {
     return new DepositFundService().get(refId);
   }
 }

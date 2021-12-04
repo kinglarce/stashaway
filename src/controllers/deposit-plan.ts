@@ -12,7 +12,9 @@ export default class DepositPlanController {
    * @summary Save deposit plan and retrieve data recorded
    */
   @Post("/")
-  public async post(@Body() body: IDepositPlanInput): Promise<IDepositPlan> {
+  public async createDepositPlan(
+    @Body() body: IDepositPlanInput
+  ): Promise<IDepositPlan> {
     return new DepositPlanService().save(body);
   }
 }

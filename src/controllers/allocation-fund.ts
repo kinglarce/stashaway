@@ -11,7 +11,7 @@ export default class AllocationFundController {
    * @summary Retrieve a list of allocation funds
    */
   @Get("/:refId")
-  public async get(@Path() refId: string): Promise<IAllocationFund[]> {
+  public async getAllocationFund(@Path() refId: string): Promise<IAllocationFund[]> {
     return new AllocationFundService().get(refId);
   }
 }
